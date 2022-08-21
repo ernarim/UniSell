@@ -70,6 +70,7 @@ dependencies:
   measure_size: ^3.0.1
   intrinsic_dimension: ^0.3.0
   measured_size: ^1.0.0
+  wechat_assets_picker: ^8.0.0
 
 
 dev_dependencies:

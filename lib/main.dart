@@ -1,19 +1,18 @@
 import 'dart:collection';
 
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/rendering.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:untitled1/FavouritesPage.dart';
 import 'package:untitled1/HomePage.dart';
 import 'package:untitled1/MessagesPage.dart';
 import 'package:untitled1/MyAdsPage.dart';
-import 'package:untitled1/PublishSalePage.dart';
+
+import 'PublishSalePage2.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -135,8 +134,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           size: 30,
         ),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const PublishSalePage()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const PublishSalePage2()));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
