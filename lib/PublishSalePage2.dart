@@ -270,6 +270,7 @@ class _PublishSalePage2State extends State<PublishSalePage2> {
                                 if (textInput.isEmpty) {
                                   return "Please set a price";
                                 }
+                                return null;
                               }
                               return "Invalid Input";
                             },
@@ -527,6 +528,7 @@ class _PublishSalePage2State extends State<PublishSalePage2> {
                                     textInput.length < 10) {
                                   return "Need to be at least 10 characters";
                                 }
+                                return null;
                               }
                               return "Invalid Input";
                             },
