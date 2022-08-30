@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   // Hide bottom navigation bar on scroll
-  bool onScrollNotification(ScrollNotification notification) {
+  /*bool onScrollNotification(ScrollNotification notification) {
     if (notification is UserScrollNotification &&
         notification.metrics.axis == Axis.vertical) {
       switch (notification.direction) {
@@ -115,16 +115,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       }
     }
     return false;
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: NotificationListener<ScrollNotification>(
-        onNotification: onScrollNotification,
-        child: pageList[_bottomNavIndex],
-      ),
+      body:pageList[_bottomNavIndex],
       // Floating Action Button
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,

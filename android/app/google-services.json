@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "717872667738",
-    "project_id": "unisell-75a6b",
-    "storage_bucket": "unisell-75a6b.appspot.com"
+    "project_number": "226937788217",
+    "project_id": "unisell-app",
+    "storage_bucket": "unisell-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:717872667738:android:f3bddf36f704d7a0338c63",
+        "mobilesdk_app_id": "1:226937788217:android:dd79e86f0249bdc3c53ae8",
         "android_client_info": {
-          "package_name": "com.example.untitled1"
+          "package_name": "com.application.unisell"
         }
       },
       "oauth_client": [
         {
-          "client_id": "717872667738-u857rn2lfvdsa0jsj0jqe5790bfbm5hr.apps.googleusercontent.com",
+          "client_id": "226937788217-dvsnghs0pr9q1f1a4rjnv9jepu7t26tb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAU2N0Hr2evXnOZeo0OziQRg_Gyw-6nkbs"
+          "current_key": "AIzaSyD3qCg-r9EqG-SYPEnSUKTgcgdq2R4V7VQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "717872667738-u857rn2lfvdsa0jsj0jqe5790bfbm5hr.apps.googleusercontent.com",
+              "client_id": "226937788217-dvsnghs0pr9q1f1a4rjnv9jepu7t26tb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

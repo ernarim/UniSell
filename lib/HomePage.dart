@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:untitled1/Product.dart';
+import 'package:untitled1/ProfilePage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // Firebase Database reference
-  var refTest = FirebaseDatabase.instance.ref().child("products");
+
   var refTestFirestore = FirebaseFirestore.instance.collection("products");
 
   final productdata = {
@@ -55,26 +56,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         });
   }
 
-  // Reading data from database
-  Future<void> readProducts() async {
-    refTest.once().then((value) {
-      var gelenUrunler = value.snapshot.value as dynamic;
-
-      if (gelenUrunler != null) {
-        gelenUrunler.forEach((key, nesne) {
-          var gelenUrun = Product.fromJson(key, nesne);
-          print("Key $key");
-          print("Name ${gelenUrun.productName}");
-        });
-      }
-    });
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    readProducts();
     getProducts();
   }
 
@@ -128,16 +114,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
               Expanded(
                 flex: 20,
-                child: Container(
-                  height: 45,
-                  margin: const EdgeInsets.fromLTRB(10, 15, 15, 5),
-                  decoration: BoxDecoration(
-                    color: HexColor('#D9D9D9'),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.person_outline_rounded,
-                    size: 32.0,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfilePage(
+                            )));
+                  },
+                  child: Container(
+                    height: 45,
+                    margin: const EdgeInsets.fromLTRB(10, 15, 15, 5),
+                    decoration: BoxDecoration(
+                      color: HexColor('#D9D9D9'),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.person_outline_rounded,
+                      size: 32.0,
+                    ),
                   ),
                 ),
               )
