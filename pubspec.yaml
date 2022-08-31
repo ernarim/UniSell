@@ -71,6 +71,7 @@ dependencies:
   intrinsic_dimension: ^0.3.0
   measured_size: ^1.0.0
   wechat_assets_picker: ^8.0.0
+  firebase_auth: ^3.7.0
 
 
 dev_dependencies:
