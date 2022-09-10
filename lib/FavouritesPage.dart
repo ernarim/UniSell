@@ -102,7 +102,15 @@ class _FavouritesPageState extends State<FavouritesPage> {
             stream: refUser.snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData && !snapshot.hasError) {
-                favIdList = snapshot.data?.get("user_favourites");
+                try {
+                  favIdList = snapshot.data?.get("user_favourites");
+                } catch (e) {
+                  return Expanded(
+                    child: Center(
+                      child: Text("You don't have any favourites yet"),
+                    ),
+                  );
+                }
                 return Expanded(
                   child: ListView.builder(
                     itemCount: favIdList.length,
