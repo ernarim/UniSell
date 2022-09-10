@@ -13,9 +13,8 @@ import 'package:untitled1/MyAdsPage.dart';
 import 'PublishSalePage2.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -33,9 +32,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     const MyAdsPage()
   ];
   var textList = ["Home", "Favourites", "Messages", "My Ads"];
-
-  // animation controllers
-  late AnimationController _hideBottomBarAnimationController;
 
   bool fabState = false;
 
@@ -61,11 +57,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     productNew["product_description"] = "130";
     refTest.push().set(productNew);
 
-    // Animation Controllers
-    _hideBottomBarAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 400),
-      vsync: this,
-    );
 
     final systemTheme = SystemUiOverlayStyle.light.copyWith(
       systemNavigationBarColor: Colors.black,
@@ -74,23 +65,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     SystemChrome.setSystemUIOverlayStyle(systemTheme);
   }
 
-  // Hide bottom navigation bar on scroll
-  /*bool onScrollNotification(ScrollNotification notification) {
-    if (notification is UserScrollNotification &&
-        notification.metrics.axis == Axis.vertical) {
-      switch (notification.direction) {
-        case ScrollDirection.forward:
-          _hideBottomBarAnimationController.reverse();
-          break;
-        case ScrollDirection.reverse:
-          _hideBottomBarAnimationController.forward();
-          break;
-        case ScrollDirection.idle:
-          break;
-      }
-    }
-    return false;
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +126,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         notchSmoothness: NotchSmoothness.softEdge,
         gapLocation: GapLocation.center,
         onTap: (index) => setState(() => _bottomNavIndex = index),
-        hideAnimationController: _hideBottomBarAnimationController,
 
         shadow: const BoxShadow(
           offset: Offset(0, 1),

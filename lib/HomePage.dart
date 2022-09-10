@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:untitled1/ProductPage.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:untitled1/Product.dart';
 import 'package:untitled1/ProfilePage.dart';
@@ -35,6 +35,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // Firebase Database reference
 
   var refTestFirestore = FirebaseFirestore.instance.collection("products");
+  var refProduct = FirebaseFirestore.instance.collection("products");
+  var userId = FirebaseAuth.instance.currentUser?.uid;
+  List<String> favIdList = <String>[];
+
+  late var isFav = false;
 
   final productdata = {
     "product_name": "product eren",
@@ -43,29 +48,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     "product_id": "",
   };
 
-  Future<void> getProducts() async {
-    refTestFirestore.get().then((value) => {
-          value.docs.forEach((value) {
-            var gelenUrun = Product.fromFirestore(value);
-            print("Gelen ürün ${gelenUrun.productName}");
-          })
-        });
-
-    refTestFirestore.add(productdata).then((value) => {
-          refTestFirestore.doc("${value.id}").update({"product_id": value.id})
-        });
-  }
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getProducts();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    var refUser = FirebaseFirestore.instance.collection("users").doc(userId);
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -184,10 +177,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           SizedBox(height: 3,),
           Expanded(
-            child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            child: StreamBuilder(
                 stream: refTestFirestore.snapshots(),
-                builder: (context, event) {
-                  if (event.hasData) {
+                builder: (context, AsyncSnapshot event) {
+                    if (event.hasData) {
                     var productList = <Product>[];
 
                     var gelenProducts = event.data!.docs;
@@ -290,7 +283,44 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               )
                                             ],
                                           ),
-                                        ))
+                                        )
+                                    ),
+                                    Positioned(
+                                        right: -2,
+                                        top: -2,
+                                        child: MaterialButton(
+                                          height: 26.0,
+                                          minWidth: 26.0,
+                                          color: Colors.black,
+
+
+                                          child: Icon(Icons.favorite_border_rounded, color: Colors.white, size: 18),
+                                          splashColor: Colors.grey,
+                                          shape: new CircleBorder(),
+                                          onPressed: () => {
+                                            refUser.get().then((value) {
+                                              favIdList = value.data()!["user_favourites"];
+                                            }),
+
+
+
+
+                                            if(favIdList.contains(productList[indeks].productId)==false){
+                                              favIdList.add(productList[indeks].productId),
+
+                                            },
+
+                                            print(favIdList),
+                                            refUser.set( {"user_favourites" : favIdList}, SetOptions(merge: true)),
+
+
+
+                                          },
+
+                                        )
+
+                                    )
+
                                   ])),
                             ),
                           );

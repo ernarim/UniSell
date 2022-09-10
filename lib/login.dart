@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:untitled1/myHomePage.dart';
+import 'package:untitled1/MyHomePage.dart';
 import 'package:untitled1/signup.dart';
 
 class LoginPage extends StatefulWidget {
@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          MyHomePage(title: "title"),
+                                          MyHomePage(),
                                     ),
                                     (route) => false));
                       } catch (e) {

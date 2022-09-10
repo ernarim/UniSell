@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled1/HomePage.dart';
+import 'package:untitled1/MyHomePage.dart';
 
 import 'login.dart';
 
@@ -42,7 +43,7 @@ class _FirstPageState extends State<FirstPage> {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          return snapshot.hasData ? HomePage() : LoginPage();
+          return snapshot.hasData ? MyHomePage() : LoginPage();
         },
       ),
     );
