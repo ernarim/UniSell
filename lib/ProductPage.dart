@@ -19,7 +19,6 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> with SingleTickerProviderStateMixin{
-  final GlobalKey _key = GlobalKey();
   late Size Ssize;
 
 
@@ -368,7 +367,7 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
                           color: Colors.black),
                       child: Center(
                         child: Text(
-                          "Electronic",
+                          widget.product.productCategories,
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.w500),
                         ),

@@ -131,15 +131,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => ProductPage(
-                                        product: Product(
-                                            product["product_id"],
-                                            product["product_name"],
-                                            product["product_price"],
-                                            product["product_description"],
-                                            "productPhotoPath",
-                                            "productOwnerId",
-                                            ["productCategories"],
-                                            true),
+                                        product: Product.fromFirestore(product),
                                       ),
                                     ),
                                   );
@@ -223,7 +215,10 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                         color: Colors.black,
                                         splashColor: Colors.grey,
                                         shape: CircleBorder(),
-                                        onPressed: () => {},
+                                        onPressed: () => {
+                                          favIdList.remove(product["product_id"]),
+                                          refUser.update ({"user_favourites" : favIdList}),
+                                        },
                                         child: Icon(Icons.remove,
                                             color: Colors.white, size: 18),
                                       )
@@ -232,8 +227,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                 ),
                               ),
                             );
-                          } else {
-                            return Text(snapshot.error.toString());
+                          } else{
+                            return Text("Deleted Product");
                           }
                         },
                       );
@@ -243,7 +238,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
               } else {
                 return Container(
                   margin: EdgeInsets.all(7.0),
-                  height: 15,
+                  height: 10,
                   child: LinearProgressIndicator(
                     color: Colors.black45,
                     backgroundColor: Colors.grey,

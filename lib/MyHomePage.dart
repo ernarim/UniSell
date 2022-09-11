@@ -10,6 +10,7 @@ import 'package:untitled1/HomePage.dart';
 import 'package:untitled1/MessagesPage.dart';
 import 'package:untitled1/MyAdsPage.dart';
 
+import 'PublishSalePage.dart';
 import 'PublishSalePage2.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -83,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const PublishSalePage2()));
+                  builder: (context) => const PublishSalePage()));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

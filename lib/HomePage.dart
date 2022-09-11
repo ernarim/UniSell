@@ -34,10 +34,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // Firebase Database reference
 
-  var refTestFirestore = FirebaseFirestore.instance.collection("products");
+
   var refProduct = FirebaseFirestore.instance.collection("products");
   var userId = FirebaseAuth.instance.currentUser?.uid;
-  List<String> favIdList = <String>[];
+  late var refUser = FirebaseFirestore.instance.collection("users").doc(userId);
+  var favIdList = <dynamic>[];
 
   late var isFav = false;
 
@@ -48,17 +49,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     "product_id": "",
   };
 
+  Future<void> getFavIdList() async{
+    refUser.get().then((value) {
+      if(value.data()!["user_favourites"]!=null){
+        favIdList = value.data()!["user_favourites"];
+      }
+      print(favIdList);
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getFavIdList();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    var refUser = FirebaseFirestore.instance.collection("users").doc(userId);
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -178,7 +188,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           SizedBox(height: 3,),
           Expanded(
             child: StreamBuilder(
-                stream: refTestFirestore.snapshots(),
+                stream: refProduct.snapshots(),
                 builder: (context, AsyncSnapshot event) {
                     if (event.hasData) {
                     var productList = <Product>[];
@@ -298,20 +308,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           splashColor: Colors.grey,
                                           shape: new CircleBorder(),
                                           onPressed: () => {
-                                            refUser.get().then((value) {
-                                              favIdList = value.data()!["user_favourites"];
-                                            }),
-
-
-
-
-                                            if(favIdList.contains(productList[indeks].productId)==false){
+                                            if(favIdList!=null){
+                                              if(favIdList.contains(productList[indeks].productId)==false){
+                                                favIdList.add(productList[indeks].productId),
+                                              }
+                                            }
+                                            else{
                                               favIdList.add(productList[indeks].productId),
-
                                             },
 
                                             print(favIdList),
-                                            refUser.set( {"user_favourites" : favIdList}, SetOptions(merge: true)),
+                                            refUser.update({"user_favourites" : favIdList}),
 
 
 

@@ -72,6 +72,7 @@ dependencies:
   measured_size: ^1.0.0
   wechat_assets_picker: ^8.0.0
   firebase_auth: ^3.7.0
+  firebase_storage: ^10.3.8
 
 
 dev_dependencies:

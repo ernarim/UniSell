@@ -7,7 +7,7 @@ class Product {
   String productDescription;
   String productPhotoPath;
   String productOwnerId;
-  List<String> productCategories;
+  String productCategories;
   bool isFav;
 
   Product(
@@ -28,7 +28,7 @@ class Product {
         json["product_description"] as String,
         json["product_photo_path"] as String,
         json["product_owner_id"] as String,
-        json["product_categories"] as List<String>,
+        json["product_categories"] as String,
         json["is_fav"] as bool,
     );
   }
@@ -42,7 +42,7 @@ class Product {
         data["product_description"] as String,
         data["product_photo_path"] as String,
         data["product_owner_id"] as String,
-        data["product_categories"] as List<String>,
+        data["product_categories"] as String,
         data["is_fav"] as bool
     );
   }
@@ -55,7 +55,7 @@ class Product {
       if (productDescription != null) "product_description": productDescription,
       if (productPhotoPath != null) "product_photo_path": productPhotoPath,
       if (productOwnerId != null) "product_owner_id": productOwnerId,
-      if (productCategories != null) "product_categories": productOwnerId,
+      if (productCategories != null) "product_categories": productCategories,
       if (isFav != null) "is_fav": isFav
     };
   }
