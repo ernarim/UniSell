@@ -1,10 +1,13 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
-
 import 'Product.dart';
 
 class ProductPage extends StatefulWidget {
@@ -19,8 +22,6 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> with SingleTickerProviderStateMixin{
-  late Size Ssize;
-
 
   final double _panelHeightClosedRate = 0.21;
   final double _panelHeightOpenRate = 0.5;
@@ -47,8 +48,27 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
   late int pageLength = imageList.length;
   late int currentPageIndex = 0;
 
+  var ownerName = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    var refUser = FirebaseFirestore.instance.collection("users").doc(widget.product.productOwnerId);
+    refUser.get().then((value) {
+      setState(() {
+        ownerName = value.data()!["name"];
+      });
+      print(ownerName);
+    });
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
+
 
     _panelHeightClosed = MediaQuery.of(context).size.height * _panelHeightClosedRate;
     _panelHeightOpen = MediaQuery.of(context).size.height * _panelHeightOpenRate;
@@ -62,8 +82,9 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
 
     return Material(
       child: Stack(
-        alignment: Alignment.topCenter,
+
         children: [
+
           SlidingUpPanel(
             backdropEnabled: true,
             panelBuilder: (sc) => _panel(sc),
@@ -111,10 +132,11 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
               BoxShadow(color: Colors.black.withOpacity(0.5), blurRadius: 16.0)
             ],
           ),
-          Positioned(
-            top: 15.0,
+          Align(
+            alignment: Alignment.topCenter,
             child: Container(
               height: 15,
+              margin: EdgeInsets.only(top: 15),
               padding: const EdgeInsets.only(left: 6, right: 6),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.5),
@@ -134,6 +156,25 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
                 index: currentPageIndex,
               ),
             ),
+          ),
+
+          GestureDetector(
+            child: Container(
+              height: 35,
+              margin: const EdgeInsets.all(15),
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: HexColor('#D9D9D9'),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.arrow_back_rounded,
+                size: 24.0,
+              ),
+            ),
+            onTap: (){
+              Navigator.pop(context);
+            },
           ),
         ],
       ),
@@ -257,14 +298,14 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
                 ],
               ),
               const SizedBox(
-                height: 13.0,
+                height: 5.0,
               ),
               Row(
                 children: [
                   Container(
                     margin: const EdgeInsets.only(left: 30),
-                    width: 50,
-                    height: 50,
+                    width: 60,
+                    height: 60,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
@@ -277,36 +318,18 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
                     children: [
                       Container(
                         margin: const EdgeInsets.only(left: 15, bottom: 4),
-                        child: const Text("Owner Name",
+                        child: Text(ownerName,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 16.0,
                             )),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 13),
-                        child: RatingBar.builder(
-                          itemSize: 18,
-                          initialRating: 3,
-                          minRating: 1,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemBuilder: (context, _) => const Icon(
-                            Icons.star_rounded,
-                            color: Colors.amber,
-                          ),
-                          onRatingUpdate: (rating) {
-                            print(rating);
-                          },
-                        ),
                       ),
                     ],
                   ),
                 ],
               ),
               const SizedBox(
-                height: 13.0,
+                height: 5.0,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

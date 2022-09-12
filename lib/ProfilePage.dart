@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:untitled1/login.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -17,8 +18,45 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       body: Column(children: [
         SizedBox(
-          height: 50,
+          height: 35,
         ),
+        Row(
+          children: [
+            GestureDetector(
+              child: Container(
+                height: 35,
+                margin: const EdgeInsets.only(left: 15),
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: HexColor('#D9D9D9'),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.arrow_back_rounded,
+                  size: 24.0,
+                ),
+              ),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            ),
+            Spacer(),
+            Container(
+              height: 35,
+              margin: const EdgeInsets.only(right: 15),
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: HexColor('#D9D9D9'),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.mode_edit_outline_outlined,
+                size: 24.0,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

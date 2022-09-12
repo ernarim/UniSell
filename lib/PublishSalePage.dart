@@ -1,15 +1,10 @@
 import 'dart:collection';
-import 'dart:html';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:images_picker/images_picker.dart';
-import 'package:multi_image_picker_view/multi_image_picker_view.dart';
-import 'package:untitled1/MyHomePage.dart';
 import 'package:untitled1/storage_service.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -256,7 +251,7 @@ class _PublishSalePageState extends State<PublishSalePage> {
                                                   TextButton(
                                                     onPressed: () {
                                                       categoryController.text =
-                                                      "Electronic Devices";
+                                                      "Electronic";
                                                       Navigator.pop(context);
                                                       FocusScope.of(context)
                                                           .unfocus();
@@ -273,7 +268,7 @@ class _PublishSalePageState extends State<PublishSalePage> {
                                                           const EdgeInsets.all(
                                                               20),
                                                           child: Text(
-                                                            "Electronic Devices",
+                                                            "Electronic",
                                                             style: TextStyle(
                                                                 color:
                                                                 Colors.black45,
