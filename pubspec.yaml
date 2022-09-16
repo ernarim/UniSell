@@ -73,6 +73,8 @@ dependencies:
   wechat_assets_picker: ^8.0.0
   firebase_auth: ^3.7.0
   firebase_storage: ^10.3.8
+  grouped_list: ^5.1.2
+  intl: ^0.17.0
 
 
 dev_dependencies:

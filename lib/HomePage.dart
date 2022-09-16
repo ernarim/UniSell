@@ -1,11 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:untitled1/ProductPage.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:untitled1/Product.dart';
+import 'package:untitled1/ProductPage.dart';
 import 'package:untitled1/ProfilePage.dart';
 
 void main() async {
@@ -34,7 +33,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // Firebase Database reference
 
-
   var refProduct = FirebaseFirestore.instance.collection("products");
   var userId = FirebaseAuth.instance.currentUser?.uid;
   late var refUser = FirebaseFirestore.instance.collection("users").doc(userId);
@@ -49,26 +47,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     "product_id": "",
   };
 
-  Future<void> getFavIdList() async{
-    refUser.get().then((value) {
-      if(value.data()!["user_favourites"]!=null){
-        favIdList = value.data()!["user_favourites"];
-      }
-      print(favIdList);
-    });
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getFavIdList();
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -119,11 +105,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 flex: 20,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProfilePage(
-                            )));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()));
                   },
                   child: Container(
                     height: 45,
@@ -151,9 +134,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.black),
                   child: const Center(
-                    child: Text(
-                      "City",
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
+                    child: Text("City",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w500)),
                   ),
                 ),
               ),
@@ -167,7 +150,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   child: const Center(
                     child: Text(
                       "School",
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
               ),
@@ -179,18 +164,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.black),
                   child: const Center(
-                    child: Text("Others", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
+                    child: Text(
+                      "Others",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
               )
             ],
           ),
-          SizedBox(height: 3,),
+          SizedBox(
+            height: 3,
+          ),
           Expanded(
             child: StreamBuilder(
                 stream: refProduct.snapshots(),
                 builder: (context, AsyncSnapshot event) {
-                    if (event.hasData) {
+                  if (event.hasData) {
                     var productList = <Product>[];
 
                     var gelenProducts = event.data!.docs;
@@ -293,8 +284,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               )
                                             ],
                                           ),
-                                        )
-                                    ),
+                                        )),
                                     Positioned(
                                         right: -2,
                                         top: -2,
@@ -302,32 +292,36 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           height: 26.0,
                                           minWidth: 26.0,
                                           color: Colors.black,
-
-
-                                          child: Icon(Icons.favorite_border_rounded, color: Colors.white, size: 18),
+                                          child: Icon(
+                                              Icons.favorite_border_rounded,
+                                              color: Colors.white,
+                                              size: 18),
                                           splashColor: Colors.grey,
                                           shape: new CircleBorder(),
                                           onPressed: () => {
-                                            if(favIdList!=null){
-                                              if(favIdList.contains(productList[indeks].productId)==false){
-                                                favIdList.add(productList[indeks].productId),
+                                            if (favIdList != null)
+                                              {
+                                                if (favIdList.contains(
+                                                        productList[indeks]
+                                                            .productId) ==
+                                                    false)
+                                                  {
+                                                    favIdList.add(
+                                                        productList[indeks]
+                                                            .productId),
+                                                  }
                                               }
-                                            }
-                                            else{
-                                              favIdList.add(productList[indeks].productId),
-                                            },
-
+                                            else
+                                              {
+                                                favIdList.add(
+                                                    productList[indeks]
+                                                        .productId),
+                                              },
                                             print(favIdList),
-                                            refUser.update({"user_favourites" : favIdList}),
-
-
-
+                                            refUser.update(
+                                                {"user_favourites": favIdList}),
                                           },
-
-                                        )
-
-                                    )
-
+                                        ))
                                   ])),
                             ),
                           );

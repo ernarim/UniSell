@@ -11,11 +11,9 @@ import 'package:untitled1/MessagesPage.dart';
 import 'package:untitled1/MyAdsPage.dart';
 
 import 'PublishSalePage.dart';
-import 'PublishSalePage2.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -58,14 +56,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     productNew["product_description"] = "130";
     refTest.push().set(productNew);
 
-
     final systemTheme = SystemUiOverlayStyle.light.copyWith(
       systemNavigationBarColor: Colors.black,
       systemNavigationBarIconBrightness: Brightness.light,
     );
     SystemChrome.setSystemUIOverlayStyle(systemTheme);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -81,10 +77,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           size: 30,
         ),
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const PublishSalePage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const PublishSalePage()));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

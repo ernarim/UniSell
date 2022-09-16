@@ -22,12 +22,6 @@ class _FavouritesPageState extends State<FavouritesPage> {
   var refProducts = FirebaseFirestore.instance.collection("products");
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -216,8 +210,10 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                         splashColor: Colors.grey,
                                         shape: CircleBorder(),
                                         onPressed: () => {
-                                          favIdList.remove(product["product_id"]),
-                                          refUser.update ({"user_favourites" : favIdList}),
+                                          favIdList
+                                              .remove(product["product_id"]),
+                                          refUser.update(
+                                              {"user_favourites": favIdList}),
                                         },
                                         child: Icon(Icons.remove,
                                             color: Colors.white, size: 18),
@@ -227,7 +223,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                 ),
                               ),
                             );
-                          } else{
+                          } else {
                             return Text("Deleted Product");
                           }
                         },
